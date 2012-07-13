@@ -1,5 +1,5 @@
-require File.expand_path('../ruby_provier', __FILE__)
-require File.expand_path('../yaml_provier', __FILE__)
+require File.expand_path('../ruby_provider', __FILE__)
+require File.expand_path('../yaml_provider', __FILE__)
 
 module Fume
   module Settable

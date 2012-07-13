@@ -1,0 +1,1 @@
+require File.expand_path('../../fume-settable', __FILE__)
