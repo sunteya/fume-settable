@@ -1,24 +1,46 @@
-# Fume::Settable
+# Fume-Settable
 
-TODO: Write a gem description
+a simple settings plugin for read on yaml, ruby, database, etc
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'fume-settable'
-
-And then execute:
-
-    $ bundle
+	gem 'fume-settable'
 
 Or install it yourself as:
 
-    $ gem install fume-settable
+	$ gem install fume-settable
 
 ## Usage
 
-TODO: Write usage instructions here
+### 1. Define Class
+
+#### `project.rb`
+	class Project < Fume::Settable::Base
+	  yaml_provider Rails.root.join("config/application.yml")      # yaml provider
+	  ruby_provider Rails.root.join("config/application.local.rb") # ruby provider
+	  append_providers ->(name) { "@lambda" if name == "lambda" }  # lambda provider
+	  append_providers :fetch_on_method                            # method provider
+	  
+	  def fetch_on_method(name)
+	    "@method" if name == "method"
+	  end
+	end
+
+#### `config/application.yml`
+	yaml: @yaml
+
+#### `config/application.local.rb`
+	settings.ruby = "@ruby"
+
+### 2. Run
+
+	Project.settings.ruby   # return "@ruby"
+	Project.settings.yaml   # return "@yaml"
+	Project.settings.lambda # return "@lambda"
+	Project.settings.method # return "@method"
+	Project.settings.unknow # return nil
 
 ## Contributing
 
