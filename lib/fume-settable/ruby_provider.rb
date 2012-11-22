@@ -16,7 +16,7 @@ module Settable
       def initialize(*files)
         files = [ files ].flatten
         @data = Hashie::Mash.new
-        files.each do |file|
+        files.reverse.each do |file|
           next if !File.exist?(file)
           instance_eval File.read(file), file.to_s
         end
@@ -26,7 +26,7 @@ module Settable
         @data
       end
       
-      def call(name)
+      def call(name, *args, &block)
         @data[name]
       end
     end

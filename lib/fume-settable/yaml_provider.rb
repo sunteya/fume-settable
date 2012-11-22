@@ -15,14 +15,14 @@ module Settable
       def initialize(*files)
         files = [ files ].flatten
         @data = {}
-        files.each do |file|
+        files.reverse.each do |file|
           next if !File.exist?(file)
           content = YAML.load(File.read(file))
           @data = @data.deep_merge(content) if content
         end
       end
       
-      def call(name)
+      def call(name, *args, &block)
         @data[name]
       end
     end

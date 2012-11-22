@@ -22,6 +22,7 @@ Or install it yourself as:
 	  ruby_provider Rails.root.join("config/application.local.rb") # ruby provider
 	  append_providers ->(name) { "@lambda" if name == "lambda" }  # lambda provider
 	  append_providers :fetch_on_method                            # method provider
+	  mem_hash_provider                                            # mem hash provider
 	  
 	  def fetch_on_method(name)
 	    "@method" if name == "method"
@@ -36,11 +37,15 @@ Or install it yourself as:
 
 ### 2. Run
 
-	Project.settings.ruby   # return "@ruby"
-	Project.settings.yaml   # return "@yaml"
-	Project.settings.lambda # return "@lambda"
-	Project.settings.method # return "@method"
-	Project.settings.unknow # return nil
+	Project.settings.ruby        # return "@ruby"
+	Project.settings.yaml        # return "@yaml"
+	Project.settings.lambda      # return "@lambda"
+	Project.settings.method      # return "@method"
+	Project.settings.unknow      # return nil
+	
+	Project.settings.memhash     # return nil
+	Project.settings.memhash = 1 # 
+	Project.settings.memhash     # return 1
 
 ## Contributing
 
