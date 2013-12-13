@@ -21,7 +21,7 @@ module Fume
       end
 
       def self.settings
-        Proxy.new(&self.method(:fetch))
+        @proxy ||= Proxy.new(&self.method(:fetch))
       end
       
       def self.append_providers(*providers, &block)
